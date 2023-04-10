@@ -1,4 +1,6 @@
 import datetime
+from AppOpener import open
+from AppOpener import close
 import webbrowser
 import DateTime
 import speech_recognition as Srec
@@ -15,7 +17,6 @@ voices = api.getProperty('voices')
 
 api.setProperty('voice', voices[1].id)
 
-valorant_path = "C:\\Riot Games\\VALORANT\\live\\VALORANT.exe"
 current = datetime.datetime.now()
 
 
@@ -134,32 +135,38 @@ def main():
         elif 'i am not fine' in query:
             ask()
 
-        elif 'open notepad' in query:
+        elif 'notepad' in query:
             speakAndprint("Opening Notepad.....")
             os.system("notepad.exe")
 
-        elif 'open calculator' in query:
+        elif 'calculator' in query:
             speakAndprint("Opening Calculator.....")
             os.system("calc.exe")
 
-        elif 'open wordpad' in query:
+        elif 'wordpad' in query:
             speakAndprint("Opening Wordpad.....")
-            os.system("calc.exe")
+            os.system("write.exe")
 
-        elif 'open youtube' in query:
+        elif 'youtube' in query:
             speakAndprint("Opening Youtube.....")
             url = "https://www.youtube.com"
             webbrowser.open(url)
+
+        elif 'open' in query:
+            speakAndprint("Please Wait, I'll try to Open It.....")
+            accept = query.replace("open", "")
+            open(accept)
+
+        elif 'close' in query:
+            speakAndprint("Please Wait, I'll try to Close It.....")
+            accept = query.replace("close", "")
+            close(accept)
 
         elif 'search' in query:
             speakAndprint("Searching It.....")
             accept = query.replace("search", "")
             url = "https://www.google.com/search?q=" + accept
             webbrowser.open(url)
-
-        # elif 'open game' in query:
-        #     speakAndprint("Opening Valorant.....")
-        #     subprocess.Popen(['C:\\Riot Games\\VALORANT\\live\\VALORANT.exe'])
 
         elif 'open google chrome' in query:
             openGoogle()
