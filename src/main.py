@@ -152,6 +152,26 @@ def main():
             url = "https://www.youtube.com"
             webbrowser.open(url)
 
+        elif 'whatsapp' in query:
+            speakAndprint("Opening Whatsapp.....")
+            url = "https://web.whatsapp.com/"
+            webbrowser.open(url)
+
+        elif 'hotstar' in query:
+            speakAndprint("Opening Hotstar.....")
+            url = "https://www.hotstar.com/"
+            webbrowser.open(url)
+
+        elif 'github' in query:
+            speakAndprint("Opening Github.....")
+            url = "https://github.com/"
+            webbrowser.open(url)
+
+        elif 'telegram' in query:
+            speakAndprint("Opening Telegram.....")
+            url = "https://web.telegram.org/"
+            webbrowser.open(url)
+
         elif 'open' in query:
             speakAndprint("Please Wait, I'll try to Open It.....")
             accept = query.replace("open", "")
