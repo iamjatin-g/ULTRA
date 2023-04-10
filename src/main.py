@@ -1,5 +1,6 @@
 import datetime
 import webbrowser
+import DateTime
 import speech_recognition as Srec
 from pip import main
 import pyttsx3
@@ -15,6 +16,7 @@ voices = api.getProperty('voices')
 api.setProperty('voice', voices[1].id)
 
 valorant_path = "C:\\Riot Games\\VALORANT\\live\\VALORANT.exe"
+current = datetime.datetime.now()
 
 
 def clear():
@@ -52,7 +54,7 @@ def listenYourMaster():
     sr = Srec.Recognizer()
     with Srec.Microphone() as source:
         print("Listening.....")
-        # sr.energy_threshold = 400
+        sr.energy_threshold = 400
         sr.pause_threshold = 1
         audio = sr.listen(source)
 
@@ -88,12 +90,6 @@ def main():
         if 'hello' in query:
             speakAndprint("Hello!")
 
-        elif 'namaste' in query:
-            speakAndprint("Namaste!")
-
-        elif 'salam' in query:
-            speakAndprint("Salam!")
-
         elif 'who are you' in query:
             defineYourSelf()
 
@@ -106,6 +102,32 @@ def main():
         elif 'how are you' in query:
             speakAndprint("I'm Fine! How are you?")
 
+        elif 'date' in query:
+            date_now = current.strftime("%d %b, %Y ")
+            sp_date = "It's " + str(date_now)
+            speakAndprint(sp_date)
+
+        elif 'time' in query:
+            time_now = current.strftime(
+                " %I hours %M minutes %S seconds of %p ")
+            sp_time = "It's " + str(time_now)
+            speakAndprint(sp_time)
+
+        elif 'day' in query:
+            day_now = current.strftime("%A")
+            sp_day = "It's " + str(day_now)
+            speakAndprint(sp_day)
+
+        elif 'month' in query:
+            month_now = current.strftime("%B")
+            sp_month = "It's " + str(month_now)
+            speakAndprint(sp_month)
+
+        elif 'year' in query:
+            year_now = current.year
+            sp_year = "It's " + str(year_now)
+            speakAndprint(sp_year)
+
         elif 'i am fine' in query:
             ask()
 
@@ -116,9 +138,23 @@ def main():
             speakAndprint("Opening Notepad.....")
             os.system("notepad.exe")
 
+        elif 'open calculator' in query:
+            speakAndprint("Opening Calculator.....")
+            os.system("calc.exe")
+
+        elif 'open wordpad' in query:
+            speakAndprint("Opening Wordpad.....")
+            os.system("calc.exe")
+
         elif 'open youtube' in query:
             speakAndprint("Opening Youtube.....")
             url = "https://www.youtube.com"
+            webbrowser.open(url)
+
+        elif 'search' in query:
+            speakAndprint("Searching It.....")
+            accept = query.replace("search", "")
+            url = "https://www.google.com/search?q=" + accept
             webbrowser.open(url)
 
         # elif 'open game' in query:
@@ -145,6 +181,7 @@ def main():
             speakAndprint("Your Most Welcome.")
 
         elif 'quit' in query:
+            speakAndprint("Thank you so much! Come back Soon!")
             exit()
 
 
