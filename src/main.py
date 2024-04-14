@@ -4,10 +4,9 @@ from AppOpener import close
 import webbrowser
 import DateTime
 import speech_recognition as Srec
-from pip import main
+from pip import main # type: ignore
 import pyttsx3
-import wikipedia
-import pyaudio
+# import pyaudio
 import subprocess
 import os
 from os import system, name
@@ -35,14 +34,14 @@ def speak(something):
 def wishYourMaster():
     hour = int(datetime.datetime.now().hour)
     if hour >= 3 and hour < 12:
-        speak("Good Morning.")
+        speakAndprint("Good Morning.")
     elif hour >= 12 and hour < 17:
-        speak("Good Afternoon.")
+        speakAndprint("Good Afternoon.")
     elif hour >= 17 and hour < 21:
-        speak("Good Evening.")
+        speakAndprint("Good Evening.")
     else:
-        speak("Sweet Night.")
-    speak("I'm ULTRA. Please tell me how may I help you?")
+        speakAndprint("Sweet Night.")
+    speakAndprint("I'm ULTRA. Please tell me how may I help you?")
 
 
 def speakAndprint(arg):
@@ -55,7 +54,7 @@ def listenYourMaster():
     sr = Srec.Recognizer()
     with Srec.Microphone() as source:
         print("Listening.....")
-        sr.energy_threshold = 400
+        sr.energy_threshold = 100
         sr.pause_threshold = 1
         audio = sr.listen(source)
 
@@ -69,39 +68,30 @@ def listenYourMaster():
         return "None"
     return query
 
-
-def defineYourSelf():
-    speakAndprint(
-        "Hello, I'm ULTRA. I'm a Desktop Assistant. I was created by my Master Jatin! I'm here to help you anytime!")
-
-
 def openGoogle():
     speakAndprint("Opening It.....")
     url = "https://www.google.com"
     webbrowser.open(url)
 
+def defineYourSelf():
+    speakAndprint(
+        "Hello, I'm ULTRA. I'm a Desktop Assistant. I was created by my Master Jatin! I'm here to help you anytime!")
 
 def ask():
     speakAndprint("Okay. Please tell me how may I help you!")
 
-
 def main():
     while True:
         query = listenYourMaster().lower()
-        if 'hello' in query:
+        if 'hello' in query or 'hi' in query or 'hey' in query:
             speakAndprint("Hello!")
+            ask()
 
-        elif 'who are you' in query:
+        elif 'who are you' in query or 'what are you' in query or 'why are you' in query or 'how are you' in query:
             defineYourSelf()
 
-        elif 'what are you' in query:
-            defineYourSelf()
-
-        elif 'why are you' in query:
-            defineYourSelf()
-
-        elif 'how are you' in query:
-            speakAndprint("I'm Fine! How are you?")
+        elif 'good morning' in query or 'good afternoon' in query or 'good evening' in query or 'good night' in query:
+            wishYourMaster()
 
         elif 'date' in query:
             date_now = current.strftime("%d %b, %Y ")
@@ -129,10 +119,7 @@ def main():
             sp_year = "It's " + str(year_now)
             speakAndprint(sp_year)
 
-        elif 'i am fine' in query:
-            ask()
-
-        elif 'i am not fine' in query:
+        elif 'i am fine' in query or 'i am not fine' in query:
             ask()
 
         elif 'notepad' in query:
@@ -147,6 +134,16 @@ def main():
             speakAndprint("Opening Wordpad.....")
             os.system("write.exe")
 
+        elif 'google' in query:
+            open("chrome")
+
+        elif 'list applications' in query:
+            open("LS")
+
+        elif 'da vinci resolve' in query:
+            speakAndprint("Opening Da Vinci Resolve.....")
+            open("davinci resolve")
+
         elif 'youtube' in query:
             speakAndprint("Opening Youtube.....")
             url = "https://www.youtube.com"
@@ -155,6 +152,11 @@ def main():
         elif 'whatsapp' in query:
             speakAndprint("Opening Whatsapp.....")
             url = "https://web.whatsapp.com/"
+            webbrowser.open(url)
+
+        elif 'netflix' in query:
+            speakAndprint("Opening Netflix.....")
+            url = "https://www.netflix.com/"
             webbrowser.open(url)
 
         elif 'hotstar' in query:
@@ -172,8 +174,17 @@ def main():
             url = "https://web.telegram.org/"
             webbrowser.open(url)
 
+        elif 'open google chrome' in query:
+            openGoogle()
+
+        elif 'open google' in query:
+            openGoogle()
+
+        elif 'open chrome' in query:
+            openGoogle()
+
         elif 'open' in query:
-            speakAndprint("Please Wait, I'll try to Open It.....")
+            speakAndprint("Please Wait, I'll try to Open It.....")    
             accept = query.replace("open", "")
             open(accept)
 
@@ -188,29 +199,12 @@ def main():
             url = "https://www.google.com/search?q=" + accept
             webbrowser.open(url)
 
-        elif 'open google chrome' in query:
-            openGoogle()
-
-        elif 'open google' in query:
-            openGoogle()
-
-        elif 'open chrome' in query:
-            openGoogle()
-
-        elif 'wikipedia' in query:
-            speak("Searching Wikipedia...")
-            query = query.replace("wikipedia", "")
-            result = wikipedia.summary(query, sentences=2)
-            speak("According to Wikipedia...")
-            speakAndprint(result)
-
         elif 'thank you' in query:
             speakAndprint("Your Most Welcome.")
 
-        elif 'quit' in query:
-            speakAndprint("Thank you so much! Come back Soon!")
+        elif 'exit' in query or 'quit' in query or 'bye' in query or 'bye bye' in query:
+            speakAndprint("Take care! Come back Soon!")
             exit()
-
 
 if __name__ == "__main__":
     clear()
